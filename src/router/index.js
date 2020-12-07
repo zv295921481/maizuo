@@ -1,29 +1,90 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Film from '../views/Film.vue'
+import Cinema from '../views/Cinema.vue'
+// import Center from '../views/Center.vue'
+import Nowplaying from '../views/film/Nowplaying.vue'
+import Comingsoon from '../views/film/Comingsoon.vue'
+import Detail from '../views/Detail.vue'
 
-Vue.use(VueRouter)
+Vue.use(VueRouter) // 注册模块,已经创建了全局组件 router-view
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/film',
+    component: Film,
+    // 嵌套路由
+    children: [
+      {
+        path: 'nowplaying', // 简写
+        component: Nowplaying
+      },
+      {
+        path: '/film/comingsoon',
+        component: Comingsoon
+      },
+      {
+        path: '',
+        redirect: 'nowplaying'
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/cinema',
+    component: Cinema
+  },
+  {
+    path: '/center',
+    component: () => import('../views/Center.vue')
+  },
+  // {
+  //   path: "/detail/:myid", //动态路由
+  //   component: Detail,
+  //   name: 'zzyDetail'
+  // },
+  {
+    path: '/detail',
+    component: Detail
+  },
+  {
+    path: '/login',
+    component: () => import('../views/Login.vue')
+  },
+  {
+    path: '*', // 通配符
+    redirect: '/film'
   }
+
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+  mode: 'history', // hash  history
+  routes: routes
 })
+
+// 全局路由守卫  拦截
+// router.beforeEach((to, from, next) => {
+//   // to and from are both route objects. must call `next`.
+//   const auth = ['/center', '/order', 'money']
+//   // console.log(to);
+//   if (auth.includes(to.fullPath)) {
+//     // console.log('验证token');
+//     if(!localStorage.getItem('token')){
+//       next('/login')
+//     }else {
+//       next()
+//     }
+//   }else {
+//     next()
+//   }
+
+// })
+
+// 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push (location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 export default router
