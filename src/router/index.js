@@ -6,6 +6,8 @@ import Cinema from '../views/Cinema.vue'
 import Nowplaying from '../views/film/Nowplaying.vue'
 import Comingsoon from '../views/film/Comingsoon.vue'
 import Detail from '../views/Detail.vue'
+import City from '../views/City.vue'
+import Search from '../views/Search.vue'
 
 Vue.use(VueRouter) // 注册模块,已经创建了全局组件 router-view
 
@@ -34,14 +36,18 @@ const routes = [
     component: Cinema
   },
   {
+    path: '/cinema/search',
+    component: Search
+  },
+  {
     path: '/center',
     component: () => import('../views/Center.vue')
   },
-  // {
-  //   path: "/detail/:myid", //动态路由
-  //   component: Detail,
-  //   name: 'zzyDetail'
-  // },
+  {
+    path: '/detail/:myid', // 动态路由
+    component: Detail,
+    name: 'zzyDetail'
+  },
   {
     path: '/detail',
     component: Detail
@@ -51,6 +57,10 @@ const routes = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/city',
+    component: City
+  },
+  {
     path: '*', // 通配符
     redirect: '/film'
   }
@@ -58,7 +68,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history', // hash  history
+  mode: 'hash', // hash  history
   routes: routes
 })
 
