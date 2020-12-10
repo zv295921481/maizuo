@@ -11,6 +11,7 @@ import Search from '../views/Search.vue'
 
 Vue.use(VueRouter) // 注册模块,已经创建了全局组件 router-view
 
+// tiechui -2222222222222
 const routes = [
   {
     path: '/film',
