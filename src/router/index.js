@@ -61,8 +61,14 @@ const routes = [
   {
     path: '/city',
     component: City
+  },
+  {
+    path: '*', // 通配符
+    redirect: '/film'
   }
 
+  // 修复了其他bug
+  // 添加了两个路由
 ]
 
 const router = new VueRouter({
