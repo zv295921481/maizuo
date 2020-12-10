@@ -61,10 +61,6 @@ const routes = [
   {
     path: '/city',
     component: City
-  },
-  {
-    path: '*', // 通配符
-    redirect: '/film'
   }
 
 ]
