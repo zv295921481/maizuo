@@ -10,6 +10,7 @@ import City from '../views/City.vue'
 import Search from '../views/Search.vue'
 
 Vue.use(VueRouter) // 注册模块,已经创建了全局组件 router-view
+// kerwin -1111111
 
 // tiechui -2222222222222
 const routes = [
